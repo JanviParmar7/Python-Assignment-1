@@ -1,0 +1,222 @@
+
+.form{
+    background-color: #fff;
+
+}
+.card{
+    border-radius: 1rem;
+   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+.logo{
+ width: 30%;
+ margin: 20%;
+ margin-left: 35%;
+ border-radius: 1rem;
+
+}
+.first-col{
+background-image: linear-gradient(#000428, #004e92);
+}
+.icon{
+    color: #ff6219;
+}
+h5{
+    letter-spacing: 1px;
+}
+.heading{
+    color:white;
+    margin-left:-130%;
+}
+.img-logo{
+    border-radius: 5rem;
+    margin-left:3%;
+    width:7%;
+}
+.btn-outline-light{
+    margin-left:-10%;
+}
+.navbar{
+    background-color:#073980;
+
+}
+.table-heading{
+     background-color:#243A73;
+     color:#fff;
+}
+.editform{
+    width:50%;
+    margin:auto;
+}
+
+.btn-edit{
+   width:2%;
+}
+.btn-action{
+    background-color:#073980;
+    width:10%;
+}
+.btn-submit{
+    background-color:#073980;
+    width:60%;
+    margin-left:20%;
+    margin-bottom:-10%;
+}
+
+.btnnewuser{
+    background-color:#073980;
+    margin-left:45%;
+}
+.user{
+    color:#073980;
+}
+
+.userform{
+    margin-top:-4%;
+    margin-left:17%;
+    width:70%;
+}
+.adduser{
+    margin-top:-4%;
+    margin-left:25%;
+    width:50%;
+}
+.form-label{
+    font-size:1.2rem;
+    font-weight:500;
+}
+.placehd{
+   font-weight:600;
+
+}
+/*user-profile css*/
+.cover{
+    background-color: #f4f5f7;
+    padding-bottom:3%;
+}
+.gradient-custom {
+    background-image: linear-gradient(#000428, #004e92);
+}
+.navbar-user{
+    height:10%;
+    background-image: linear-gradient(#000428, #004e92);
+}
+.wel-user{
+    color:#fff;
+    margin-left:-65%;
+}
+.user-edit-form{
+    margin:0% 10%;
+}
+.update-user{
+    color:#fff;
+    margin-left:-75%;
+}
+.user-email{
+    font-weight:350;
+}
+.btn-user{
+    background-image: linear-gradient(#000428, #004e92);
+    margin-left:0%;
+    width:30%;
+    margin-top:3%;
+}
+.btn-user-submit{
+    background-image: linear-gradient(#000428, #004e92);
+    margin-left:35%;
+    width:30%;
+    margin-top:3%;
+}
+.user-logo{
+
+    padding: 5% 25%;
+
+}
+.error{
+    color:#FF0000;
+}
+.toast{
+    width:500px;
+    margin:auto;
+}
+.toast-container{
+    margin-bottom:-2%;
+    margin-left:30%;
+}
+.toastusermsg{
+    margin-left:2%;
+    color: #073980;
+    font-size:0.9rem;
+    font-weight:700;
+}
+.toastmsg{
+    color: #073980;
+    font-size:1rem;
+    font-weight:400;
+}
+.closeimg{
+    margin-left:68%;
+    width:6%;
+}
+.fa-cog {
+  color: #0000FF;
+}
+@media(max-width:700px){
+    .wel-user{
+    color:#fff;
+    margin-left:-15%;
+    }
+    .update-user{
+    color:#fff;
+    margin-left:-10%;
+    }
+    .btn-user-submit{
+    background-image: linear-gradient(#000428, #004e92);
+    margin-left:0%;
+    width:100%;
+    margin-top:3%;
+    }
+    .userform{
+    margin-top:-4%;
+    margin-left:0%;
+    width:100%;
+    }
+    .adduser {
+    margin-top: -4%;
+    margin-left: 0%;
+    width: 100%;
+    }
+}
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+    .wel-user{
+    color:#fff;
+    margin-left:-50%;
+    }
+    .update-user{
+    color:#fff;
+    margin-left:-30%;
+}
+}
+
+
+/*-------------for Profile photo-----------*/
+.upload .round{
+    position: absolute;
+    top: 38%;
+    left: 15%;
+    background: #ff0000;
+    border-radius: 50%;
+    width: 4%;
+    line-height: 33px;
+    overflow: hidden;
+}
+
+.upload .round input[type='file']{
+    position: absolute;
+    transform: scale(2);
+    opacity: 0;
+}
+
+
+

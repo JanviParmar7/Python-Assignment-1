@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="toast-container top-0 pt-3">
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <i class="fa-brands fa-reddit fa-cog fa-2x"></i>
+                    <span class="toastusermsg">Hey,{{ session['username'] }}</span>
+
+                   <img src="static/img/close.jpg" class="closeimg" data-bs-dismiss="toast" aria-label="Close">
+                </div>
+                <div class="toast-body">
+                    <span class="toastmsg">{{ message }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    <nav class="navbar my-5 mx-0 navbar-light">
+        <a class="navbar-brand">
+            <img src="static/img/admin-logo.jpg" class="img-fluid img-logo">
+        </a>
+        <h2 class="heading">Admin Master</h2>
+        <form class="d-flex">
+            <a href="{{ url_for('logout_admin') }}" class="btn btn-outline-light" onclick="return confirm('Are you sure you want to Logout?');">LOGOUT</a>
+        </form>
+    </nav>
+<div style="overflow-x:auto;">
+  <table id="page" class="table">
+      <thead>
+        <tr class="table-heading">
+
+            <th>User Name</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>DOB</th>
+            <th>Mobile Number</th>
+            <th>Gender</th>
+            <th>Address</th>
+            <th>Date of updation</th>
+            <th>Change Password</th>
+            <th class="text-center">Action</th>
+        </tr>
+      </thead>
+        {% for row in data %}
+
+        <tr class=" table-light">
+           <td>{{ row[16] or '' }}</td>
+            <td>{{ row[2] or '' }} {{ row[3] or '' }}</td>
+            <td>{{ row[15] or '' }}</td>
+            <td>{{ row[4] or ''}}</td>
+            <td>{{ row[5] or ''}}</td>
+            <td>{{ row[6] or ''}}</td>
+            <td >{{ row[7] or '' }} {{ row[8] or '' }} {{ row[10] or '' }} {{ row[9] or '' }}</td>
+            <td>{{ row[11] or ''}}</td>
+
+            <td class="text-center btn-edit">
+                <a href="{{ url_for('resetpw', user_id= row[1]) }}" class="btn btn-primary mx-1" >
+                    <i class="fa-solid fa-key"></i>
+                </a>
+            </td>
+
+            <td class="text-center btn-action">
+                <a href="{{ url_for('fetch_update_user', user_id= row[1]) }}" class="btn btn-dark mx-1" >
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <a href="{{ url_for('delete', user_id= row[1] ) }}" class="btn btn-danger"  onclick="return confirm('Are you sure you want to Delete?');" >
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </td>
+      </tr>
+    {% endfor %}
+
+  </table>
+</div>
+  <a href="{{ url_for('adduser') }}" class="btn btn-primary btnnewuser " >Create New User</a>
+
+
+</div>
+{% endblock %}

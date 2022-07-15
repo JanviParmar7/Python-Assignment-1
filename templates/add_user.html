@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <nav class="navbar my-5 mx-0 navbar-light">
+        <a href="{{ url_for('display') }}" class="btn btn-danger mx-3" onclick="return confirm('Are you sure you want to go back?');">
+          <i class="fa-solid fa-circle-arrow-left"></i>
+        </a>
+        <h2 class="heading px-3">Admin Admin Master</h2>
+    </nav>
+
+    <div class="container py-5 h-100 ">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card adduser">
+                    <div class="row g-0">
+                        <div class="col d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 ">
+
+                                <form action="{{ url_for('createuser') }}" onsubmit="return !!(checkPassword() & emptyUname() & emptyEmail() & emptyConPassword())" method="post">
+
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+                                        <span class="h1 fw-bold mb-0">Create New User</span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="hidden" name="id" class="form-control form-control-lg" value="" />
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="text" name="username" id="unm" class="form-control form-control-lg" value="" placeholder="Username" />
+                                        <label class="form-label">Username</label><br>
+                                        <span id="unmmsg" class="error"></span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="text" name="email" id="em" class="form-control form-control-lg" value="" placeholder="Email" />
+                                        <label class="form-label">Email</label><br>
+                                        <span id="emailmsg" class="error"></span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="password" name="password" id="pw" class="form-control form-control-lg" value="" placeholder="Password" />
+                                        <label class="form-label">Password</label><br>
+                                        <span id="message" class="error"></span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="password" name="confirm_pw" id="conPass" class="form-control form-control-lg" value="" placeholder="Confirm password" />
+                                        <label class="form-label">Confirm Password</label><br>
+                                        <span id="cnmsg" class="error"></span>
+                                    </div>
+
+
+                                    {% if error %}
+                                    <p class="error">{{ error }}</p>
+                                    {% endif %}
+
+                                    <div class="pt-1 mb-4">
+                                        <input type="submit" class="btn btn-primary btn-lg btn-block btn-submit"  value="Create">
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+</div>
+{% endblock %}

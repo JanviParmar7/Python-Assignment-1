@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="cover">
+  <div class="container py-5 h-100">
+      <nav class="navbar navbar-user my-5 mx-0 py-3 navbar-light">
+        <a href="{{ url_for('userprofile') }}" class="btn btn-danger mx-3" onclick="return confirm('Are you sure you want to go back?');">
+          <i class="fa-solid fa-circle-arrow-left"></i>
+        </a>
+        <h3 class="update-user">Edit your profile...</h3>
+        <form class="d-flex">
+
+        </form>
+      </nav>
+
+      <div class="row d-flex justify-content-center align-items-center ">
+            <div class="col user-edit-form">
+                <div class="card " style="border-radius: .5rem;">
+
+                    <div class="card-body p-4">
+                        <h2>Profile Details</h2>
+                        <hr class="mt-0 mb-4">
+
+                        <form action="{{ url_for('updateuser') }}" onsubmit="return !!(CheckMobileNumber() & underAgeValidate() & emptyFname() & emptyLname() & emptyUname() & emptyEmail() & emptyAddress()  & emptyCity() & emptyState() & isZipCode() & fileValidation() & photoValidation())" enctype="multipart/form-data" method="post">
+
+<!--                             <div class="upload">-->
+<!--                             <img src="static/img/images2.png" class="img-fluid my-5 user-logo" alt="logo">-->
+<!--                             <div class="round">-->
+<!--                                 <input type="file" >-->
+<!--                                 <i class="fa fa-camera fa-2x" style="color: #fff;"></i>-->
+<!--                             </div>-->
+<!--                            </div>-->
+
+                            <div class="form-outline mb-4">
+                                <input type="hidden" name="id" class="form-control form-control-lg" value="{{data[0] or '' }}" />
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="hidden" name="userid" class="form-control form-control-lg" value="{{data[1] or '' }}" />
+                            </div>
+
+                            <div class="row pt-1">
+                                <div class="col-6 mb-3">
+                                     <div class="form-outline mb-4">
+                                        <input type="text" name="username" id="unm" class="form-control form-control-lg" value="{{data[16] or '' }}" readonly  />
+                                        <label class="form-label">Username</label><br>
+                                         <span id="unmmsg" class="error"></span>
+                                    </div>
+
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <div class="form-outline mb-4">
+                                        <input type="text" name="email" id="em" class="form-control form-control-lg" value="{{data[15] or '' }}" readonly/>
+                                        <label class="form-label">Email</label><br>
+                                         <span id="emailmsg" class="error"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row pt-1">
+                                <div class="col-6 mb-3">
+                                   <div class="form-outline mb-4">
+                                        <input type="text" name="fname" id="fnm" class="form-control form-control-lg" value="{{data[2] or '' }}" placeholder="First name" />
+                                        <label class="form-label" >First Name</label><br>
+                                        <span id="fnmmsg" class="error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <div class="form-outline mb-4">
+                                        <input type="text" name="lname" id="lnm" class="form-control form-control-lg" value="{{data[3] or '' }}" placeholder="Last name" />
+                                        <label class="form-label">Last Name</label><br>
+                                        <span id="lnmmsg" class="error"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pt-1">
+                                <div class="col-6 mb-3">
+                                    <div class="form-outline mb-4">
+                                        <input type="tel" name="mobile" placeholder="Mobile No." id="mo_no" class="form-control form-control-lg" value="{{data[5] or '' }}" />
+                                        <label class="form-label">Mobile Number</label><br>
+                                        <span id="msg" class="error"></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-6 mb-3">
+                                    <div class="form-group mb-5 mt-4">
+                                        <label class="form-label mx-2" >Gender</label>
+                                        <input name="gender" type="radio" value="male" id="m" class="mx-2" />Male
+                                        <input name="gender" type="radio" value="female" id="f" class="mx-2" />Female
+                                        <span  id="sel" hidden>{{data[6] or '' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pt-1">
+                                    <div class="col-6 mb-3">
+                                        <div class="form-outline mb-4">
+                                            <input type="date" name="dob" id="db" class="form-control form-control-lg" value="{{data[4] or '' }}" placeholder="Date of Birth" />
+                                            <label class="form-label">Date Of Birth</label><br>
+                                            <span id="bdate" class="error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-3 ">
+                                        <div class="form-outline mb-4 ">
+                                            <input type="text" name="city" id="ct" class="form-control form-control-lg" value="{{data[8] or '' }}" placeholder="City" />
+                                            <label class="form-label">City</label><br>
+                                            <span id="ctmsg" class="error"></span>
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <div class="row pt-1">
+                                <div class="col-6 mb-3">
+                                    <div class="form-outline mb-4">
+                                        <select id="st" name="state" class="form-control" value="{{data[9] or '' }}">
+                                            <option value="{{data[9] or '' }}" selected>{{data[9] or '' }}</option>
+                                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                            <option value="Assam">Assam</option>
+                                            <option value="Bihar">Bihar</option>
+                                            <option value="Chandigarh">Chandigarh</option>
+                                            <option value="Chhattisgarh">Chhattisgarh</option>
+                                            <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                                            <option value="Daman and Diu">Daman and Diu</option>
+                                            <option value="Delhi">Delhi</option>
+                                            <option value="Goa">Goa</option>
+                                            <option value="Gujarat" >Gujarat</option>
+                                            <option value="Haryana">Haryana</option>
+                                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                            <option value="Jharkhand">Jharkhand</option>
+                                            <option value="Karnataka">Karnataka</option>
+                                            <option value="Kerala">Kerala</option>
+                                            <option value="Ladakh">Ladakh</option>
+                                            <option value="Lakshadweep">Lakshadweep</option>
+                                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                            <option value="Maharashtra">Maharashtra</option>
+                                            <option value="Manipur">Manipur</option>
+                                            <option value="Meghalaya">Meghalaya</option>
+                                            <option value="Mizoram">Mizoram</option>
+                                            <option value="Nagaland">Nagaland</option>
+                                            <option value="Odisha">Odisha</option>
+                                            <option value="Puducherry">Puducherry</option>
+                                            <option value="Punjab">Punjab</option>
+                                            <option value="Rajasthan">Rajasthan</option>
+                                            <option value="Sikkim">Sikkim</option>
+                                            <option value="Tamil Nadu">Tamil Nadu</option>
+                                            <option value="Telangana">Telangana</option>
+                                            <option value="Tripura">Tripura</option>
+                                            <option value="Uttar Pradeshvv">Uttar Pradesh</option>
+                                            <option value="Uttarakhand">Uttarakhand</option>
+                                            <option value="West Bengal">West Bengal</option>
+                                        </select>
+                                        <label class="form-label">State</label><br>
+                                        <span id="stmsg" class="error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <div class="form-outline mb-4">
+                                        <input type="text" placeholder="Zipcode" id="zcode1" name="zipcode" class="form-control form-control-lg" value="{{data[10] or '' }}" />
+                                        <label class="form-label">Zipcode</label><br>
+                                        <span id="zip" class="error"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row  pt-1">
+                                <div class="col-6 mb-3">
+                                    <div class="form-outline mb-4 ">
+                                        <input type="text" name="address" id="add" class="form-control form-control-lg" value="{{data[7] or '' }}" placeholder="Address" />
+                                        <label class="form-label">Address</label><br>
+                                        <span id="addmsg" class="error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <div class="form-outline mb-4 ">
+                                        <input type="file" name="file" id="file" class="form-control form-control" autocomplete="off">
+                                        <span>{{data[13] or '' }}</span>
+                                        <label class="form-label">Upload your Birth-Certificate</label><br>
+                                        <span id="filemsg" class="error"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <div class="form-outline mb-4 ">
+                                 <input type="file" name="pfile" id="pfile" class="form-control form-control" autocomplete="off">
+                                 <label class="form-label">Profile Photo</label><br>
+                                 <span id="photomsg" class="error"></span>
+                             </div>
+
+                            <hr class="mt-2 mb-4">
+                            <div class="pt-1 mb-4">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block btn-user-submit"  value="Update">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+      </div>
+  </div>
+</section>
+
+{% endblock %}
