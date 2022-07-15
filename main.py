@@ -279,6 +279,7 @@ def fetch_user_edit():
         return redirect(url_for('admin_login'))
 
 
+
 @app.route("/update_user", methods=["GET", "POST"])
 def updateuser():
     if session['chkuserlogin']:
@@ -293,32 +294,32 @@ def updateuser():
             city = request.form.get("city")
             state = request.form.get("state")
             zipcode = request.form.get("zipcode")
-            username = request.form.get("username")
-            email = request.form.get("email")
-            pdf = request.files['file']
-            file = request.files['pfile']
-
+            username = request.form.get('username')
+            email = request.form.get('email')
+            file = request.files['photo']
+            pdffile = request.files['pdf']
             date_modified = datetime.date.today()
             cur = conn.cursor()
-
             if request.method == "POST":
-                    pdfname = secure_filename(pdf.filename)
-                    filename = secure_filename(file.filename)
-
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER_A'], filename))
-                    pdf.save(os.path.join(app.config['UPLOAD_FOLDER'], pdfname))
-            cur.execute(f"""UPDATE user_profile set first_name='{fname}', last_name='{lname}', date_of_birth='{dob}',
-                                    mobile_number='{mobile}', gender='{gender}', address='{address}', city='{city}',
-                                    state='{state}', zipcode='{zipcode}', profile_updated_dt='{date_modified}',img='{filename}', birth_certificate='{pdfname}' WHERE user_id='{user_id}'""")
-            cur.execute(f"""UPDATE user_login set username='{username}', email='{email}' WHERE id='{user_id}'""")
+                pdfnm = secure_filename(pdffile.filename)
+                filename = secure_filename(file.filename)
+                pdffile.save(os.path.join(app.config['UPLOAD_FOLDER'], pdfnm))
+                file.save(os.path.join(app.config['UPLOAD_FOLDER_A'], filename))
+            cur.execute(f"UPDATE user_profile set first_name='{fname}', last_name='{lname}', date_of_birth='{dob}', mobile_number='{mobile}', gender='{gender}', address='{address}', city='{city}', state='{state}', zipcode='{zipcode}', profile_updated_dt='{date_modified}', img='{filename}', birth_certificate='{pdfnm}'  WHERE user_id='{user_id}'")
+            cur.execute(
+                f"UPDATE user_login set username='{username}', email='{email}'WHERE id='{user_id}'")
             conn.commit()
             cur.close()
-        flash(u'Your Profile Updated successfully!')
+            flash(u'Your profile updated successfully')
         return redirect(url_for('userprofile'))
     else:
         return redirect(url_for('adminlogin'))
 
 
+
+@app.route('/display/<filename>')
+def display_image(filename):
+    return redirect(url_for('static', filename='upload/' + filename))
 
 
 @app.route("/logout")
