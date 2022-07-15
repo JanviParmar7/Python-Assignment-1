@@ -286,7 +286,7 @@ else
 
 function fileValidation() {
             var fileInput =
-                document.getElementById('file');
+                document.getElementById('pdf');
 
             var filePath = fileInput.value;
 
@@ -310,28 +310,29 @@ function fileValidation() {
 
 }
 
-function photoValidation() {
-            var fileInput =
-                document.getElementById('pfile');
-
-            var filePath = fileInput.value;
-
-            // Allowing file type
-            var allowedExtensions =
-                    /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-            if (filePath == "")
-            {
-                 document.getElementById("photmsg").innerHTML = "Please provide your profile-photo!";
-                 return false;
-            }
-            if (!allowedExtensions.exec(filePath)) {
-                document.getElementById("photomsg").innerHTML = "Invalid file format!";
-                fileInput.value = '';
-                return false;
-            }
-            else{
-                document.getElementById("filemsg").innerHTML = "";
-                return true;
-            }
+function photoValidation()
+{
+    var fileInput =  document.getElementById('file');
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+    if(filePath == "")
+    {
+        document.getElementById("photomsg").innerHTML = "Please provide your profile photo";
+        return false;
+    }
+    if (!allowedExtensions.exec(filePath))
+    {
+        document.getElementById("photomsg").innerHTML = "Invalid file format";
+        fileInput.value = '';
+        return false;
+    }
+    else
+    {
+        document.getElementById("photomsg").innerHTML = "";
+        return true;
+    }
 
 }
+
+
+
