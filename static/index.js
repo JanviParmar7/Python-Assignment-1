@@ -138,7 +138,7 @@ if(add == "") {
 function emptyCity()
 {
     var ct = document.getElementById("ct").value;
-    if(st == "")
+    if(ct == "")
     {
         document.getElementById("ctmsg").innerHTML = "Please provide your city name!";
         return false;
@@ -303,6 +303,10 @@ function fileValidation() {
                 fileInput.value = '';
                 return false;
             }
+            if (fileInput.files[0].size >= 3145728)
+            {
+                document.getElementById("filemsg").innerHTML = "File size should be less than or Equal to 3 MB";
+            }
             else{
                 document.getElementById("filemsg").innerHTML = "";
                 return true;
@@ -314,7 +318,7 @@ function photoValidation()
 {
     var fileInput =  document.getElementById('file');
     var filePath = fileInput.value;
-    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
     if(filePath == "")
     {
         document.getElementById("photomsg").innerHTML = "Please provide your profile photo";
@@ -326,6 +330,10 @@ function photoValidation()
         fileInput.value = '';
         return false;
     }
+    if (fileInput.files[0].size > 1048576)
+    {
+         document.getElementById("photomsg").innerHTML = "Images size should be less than 1 MB";
+    }
     else
     {
         document.getElementById("photomsg").innerHTML = "";
@@ -333,6 +341,3 @@ function photoValidation()
     }
 
 }
-
-
-
