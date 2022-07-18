@@ -9,29 +9,29 @@
         <h2 class="heading px-3">Admin Master</h2>
     </nav>
 
-    <div class="container py-5 h-100 ">
+    <div class="container h-100 " id="container">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col col-xl-10">
-                <div class="card userform ">
+                <div class="card">
                     <div class="row g-0">
                         <div class="col d-flex align-items-center">
                             <div class="card-body p-4 p-lg-5 ">
 
-                                <form action="{{ url_for('update') }}" onsubmit="return !!(CheckMobileNumber() & underAgeValidate() & emptyFname() & emptyLname() & emptyUname() & emptyEmail() & emptyAddress()  & emptyCity() & emptyState() & isZipCode() & fileValidation())" enctype="multipart/form-data" method="post">
+                                <form action="{{ url_for('update') }}" onsubmit="return !!(CheckMobileNumber() & underAgeValidate() & emptyFname() & emptyLname() & emptyUname() & emptyEmail() & emptyAddress()  & emptyCity() & emptyState() & isZipCode())" enctype="multipart/form-data" method="post">
 
                                     <div class="d-flex align-items-center mb-3 pb-1">
                                         <span class="h1 fw-bold mb-0">Edit Information</span>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-4"></div>
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-4 profile-img">
                                             {% if account[12] != None %}
 
-                                                    <img src="{{ url_for('static', filename='profile/' + account[12] or '')}}" class="img-fluid  rounded-circle " width="250px" alt="database-logo">
+                                                    <a href="{{ url_for('static', filename='profile/' + account[12] or '')}}"><img src="{{ url_for('static', filename='profile/' + account[12] or '')}}" class="img-fluid  rounded-circle my-4" width="400" height="400" id="edit-image" alt="database-logo"></a>
 
                                             {% else %}
 
-                                                    <img src="{{url_for('static', filename='img/images2.png')}}" class="img-fluid  rounded-circle " width="250px" alt="logo">
+                                                    <img src="{{url_for('static', filename='profile/images2.png')}}" class="img-fluid  rounded-circle my-4" id="edit-profile" width="400" height="400" alt="logo">
 
                                             {% endif %}
                                         </div>
@@ -50,14 +50,14 @@
                                         <div class="col-lg-6 col-md-6">
 
 
-                                            <div class="form-outline mb-4">
+                                            <div class="form-outline update-label">
                                                 <input type="text" name="fname" id="fnm" class="form-control form-control-lg" value="{{account[2] or '' }}" placeholder="First name" />
                                                 <label class="form-label" >First Name</label><br>
                                                   <span id="fnmmsg" class="error"></span>
                                             </div>
 
 
-                                            <div class="form-outline mb-4">
+                                            <div class="form-outline update-label">
                                                 <input type="text" name="lname" id="lnm" class="form-control form-control-lg" value="{{account[3] or '' }}" placeholder="Last name" />
                                                 <label class="form-label">Last Name</label><br>
                                                  <span id="lnmmsg" class="error"></span>
@@ -65,28 +65,31 @@
 
 
 
-                                            <div class="form-outline mb-4">
+                                            <div class="form-outline update-label">
                                                 <input type="text" name="username" id="unm" class="form-control form-control-lg" value="{{account[16] or '' }}" readonly/>
                                                 <label class="form-label">Username</label><br>
                                                 <span id="unmmsg" class="error"></span>
                                             </div>
 
 
-                                            <div class="form-outline mb-4">
+                                            <div class="form-outline update-label">
                                                 <input type="text" name="email" id="em" class="form-control form-control-lg" value="{{account[15] or '' }}" readonly/>
                                                 <label class="form-label">Email</label><br>
                                                 <span id="emailmsg" class="error"></span>
                                             </div>
 
-                                            <div class="form-outline mb-4">
+                                            <div class="form-outline update-label">
                                                 <input type="date" name="dob" id="db" class="form-control form-control-lg" value="{{account[4] or '' }}" placeholder="Date of Birth" />
                                                 <label class="form-label">Date Of Birth</label><br>
                                                 <span id="bdate" class="error"></span>
                                             </div>
 
-                                         <div class="form-outline mb-4 ">
-                                            <input type="text"  class="form-control form-control" value="{{account[13] or '' }}" readonly>
-
+                                         <div class="form-outline update-label">
+                                             {% if account[13] != None %}
+                                                <a href="{{ url_for('static', filename='uploads/' + account[13] or '') }}" download><input type="text" class="form-control form-control-lg" value="{{account[13] or '' }}"readonly></a>
+                                             {% else %}
+                                                  <input type="text" class="form-control form-control-lg" value="No file choosen"readonly>
+                                             {% endif %}
                                             <label class="form-label">Birth-Certificate</label><br>
 
                                         </div>
@@ -95,7 +98,7 @@
 
                                          </div>
                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-outline mb-4">
+                                            <div class="form-outline form-mobile">
                                                 <input type="tel" name="mobile" placeholder="Mobile no." id="mo_no"  class="form-control form-control-lg" value="{{account[5] or '' }}" />
                                                 <label class="form-label">Mobile Number</label><br>
                                                 <span id="msg" class="error"></span>
@@ -104,8 +107,8 @@
 
 
 
-                                            <div class="form-group ">
-                                                <label class="form-label mx-2" >Gender</label>
+                                            <div class="form-group gender-group">
+                                                <label class="form-label form-gender">Gender</label>
                                                 <input name="gender" type="radio" value="male" id="m" class="mx-2" />Male
                                                 <input name="gender" type="radio" value="female" id="f" class="mx-2" />Female
                                                 <span  id="sel" hidden>{{account[6] or '' }}</span>
@@ -114,21 +117,27 @@
                                             </div>
 
 
-                                            <div class="form-outline mb-4 mt-4">
+                                            <div class="form-outline form-address">
                                                 <input type="text" name="address" id="add" class="form-control form-control-lg" value="{{account[7] or '' }}" placeholder="Address" />
                                                 <label class="form-label">Address</label><br>
                                                  <span id="addmsg" class="error"></span>
                                             </div>
 
-                                            <div class="form-outline mb-4">
+                                            <div class="form-outline update-label">
                                                 <input type="text" name="city" id="ct" class="form-control form-control-lg" value="{{account[8] or '' }}" placeholder="City" />
                                                 <label class="form-label">City</label><br>
                                                 <span id="ctmsg" class="error"></span>
                                             </div>
 
-                                            <div class="form-outline mb-4">
+                                            <div class="form-outline update-label">
                                                 <select id="st" name="state" class="form-control" value="{{account[9] or '' }}">
-                                                    <option value="{{account[9] or '' }}" selected>{{account[9] or '' }}</option>
+                                                    <option value="{{account[9] or '' }}" selected>
+                                                        {% if account[9] != None %}
+                                                            {{account[9] or '' }}
+                                                        {% else %}
+                                                            Select State
+                                                        {% endif %}
+                                                    </option>
                                                     <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
                                                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                                                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -171,13 +180,13 @@
                                                 <span id="stmsg" class="error"></span>
                                             </div>
 
-                                            <div class="form-outline mb-4">
+                                            <div class="form-outline update-label">
                                                 <input type="text" name="zipcode" id="zcode1" placeholder="Zipcode" class="form-control form-control-lg" value="{{account[10] or '' }}" />
                                                 <label class="form-label">Zipcode</label><br>
                                                 <span id="zip" class="error"></span>
                                             </div>
 
-                                            <div class="form-outline mb-4">
+                                            <div class="form-outline update-label">
                                                 <input type="date" name="profile_updated_date" class="form-control form-control-lg " value="{{account[11] or '' }}" readonly/>
                                                 <label class="form-label">Profile-Updated Date</label>
                                             </div>
