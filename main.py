@@ -85,7 +85,6 @@ def adminlogin():
     cur.close()
     return render_template('admin_login.html')
 
-
 @app.route('/user-profile')
 def userprofile():
     if session['chkuserlogin']:
@@ -123,12 +122,13 @@ def fetch_update_user(user_id):
     else:
         return redirect(url_for('admin_login'))
 
+@app.route("/update", methods=["GET", "POST"])
+
 
 @app.route("/update", methods=["GET", "POST"])
 def update():
     if session['checklogin']:
         if request.method == "POST":
-
             user_id = request.form.get("userid")
             fname = request.form.get("fname")
             lname = request.form.get("lname")
@@ -143,15 +143,15 @@ def update():
             email = request.form.get("email")
             date_modified = datetime.date.today()
             cur = conn.cursor()
-
             cur.execute(f"""UPDATE user_profile set first_name='{fname}', last_name='{lname}', date_of_birth='{dob}',
-                                    mobile_number='{mobile}', gender='{gender}', address='{address}', city='{city}',
-                                    state='{state}', zipcode='{zipcode}', profile_updated_dt='{date_modified}' WHERE user_id='{user_id}'""")
+                                        mobile_number='{mobile}', gender='{gender}', address='{address}', city='{city}',
+                                        state='{state}', zipcode='{zipcode}', profile_updated_dt='{date_modified}' WHERE user_id='{user_id}'""")
             cur.execute(f"""UPDATE user_login set username='{username}', email='{email}' WHERE id='{user_id}'""")
             conn.commit()
             cur.close()
         flash(u'Information updated successfully!')
         return redirect(url_for('display'))
+
     else:
         return redirect(url_for('adminlogin'))
 
@@ -229,12 +229,19 @@ def createuser():
         cur = conn.cursor()
         email = request.form.get('email')
         password = request.form.get('password')
+        username = request.form.get('username')
         confirm_pw = request.form.get('confirm_pw')
         cur.execute(f"select * from user_login where email='{email}'")
         user_exists = cur.fetchone()
-        cur.close()
+        cur.execute(f"select * from user_login where username='{username}'")
+        user_exist = cur.fetchone()
+        cur.close() 
+
         if user_exists:
             msg = "Account with this email already exists, Please try another email!"
+            return render_template("add_user.html", error=msg)
+        if user_exist:
+            msg = "Account with this username already exists, Please try another username!"
             return render_template("add_user.html", error=msg)
         if request.method == "POST":
             if password == confirm_pw:
@@ -327,7 +334,6 @@ def logout_admin():
     session['checklogin'] = False
     session.clear()
     return render_template("admin_login.html")
-
 
 @app.route("/logout")
 def logout_user():
