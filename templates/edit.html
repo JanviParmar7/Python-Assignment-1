@@ -3,8 +3,9 @@
 {% block content %}
 <div class="container">
     <nav class="navbar my-5 mx-0  navbar-light">
-        <a href="{{ url_for('display') }}" class="btn btn-danger mx-3" onclick="return confirm('Are you sure you want to go back?');">
-          <i class="fa-solid fa-circle-arrow-left"></i>
+        <a href="{{ url_for('display') }}" class="btn btn-danger mx-3"
+            onclick="return confirm('Are you sure you want to go back?');">
+            <i class="fa-solid fa-circle-arrow-left"></i>
         </a>
         <h2 class="heading px-3">Admin Master</h2>
     </nav>
@@ -17,7 +18,9 @@
                         <div class="col d-flex align-items-center">
                             <div class="card-body p-4 p-lg-5 ">
 
-                                <form action="{{ url_for('update') }}" onsubmit="return !!(CheckMobileNumber() & underAgeValidate() & emptyFname() & emptyLname() & emptyUname() & emptyEmail() & emptyAddress()  & emptyCity() & emptyState() & isZipCode())" enctype="multipart/form-data" method="post">
+                                <form action="{{ url_for('update') }}"
+                                    onsubmit="return !!(CheckMobileNumber() & underAgeValidate() & emptyFname() & emptyLname() & emptyUname() & emptyEmail() & emptyAddress()  & emptyCity() & emptyState() & isZipCode())"
+                                    enctype="multipart/form-data" method="post">
 
                                     <div class="d-flex align-items-center mb-3 pb-1">
                                         <span class="h1 fw-bold mb-0">Edit Information</span>
@@ -27,11 +30,16 @@
                                         <div class="col-lg-4 profile-img">
                                             {% if account[12] != None %}
 
-                                                    <a href="{{ url_for('static', filename='profile/' + account[12] or '')}}"><img src="{{ url_for('static', filename='profile/' + account[12] or '')}}" class="img-fluid  rounded-circle my-4" width="400" height="400" id="edit-image" alt="database-logo"></a>
+                                            <a href="{{ url_for('static', filename='profile/' + account[12] or '')}}"><img
+                                                    src="{{ url_for('static', filename='profile/' + account[12] or '')}}"
+                                                    class="img-fluid  rounded-circle my-4" width="400" height="400"
+                                                    id="edit-image" alt="database-logo"></a>
 
                                             {% else %}
 
-                                                    <img src="{{url_for('static', filename='profile/images2.png')}}" class="img-fluid  rounded-circle my-4" id="edit-profile" width="400" height="400" alt="logo">
+                                            <img src="{{url_for('static', filename='profile/images2.png')}}"
+                                                class="img-fluid  rounded-circle my-4" id="edit-profile" width="400"
+                                                height="400" alt="logo">
 
                                             {% endif %}
                                         </div>
@@ -39,11 +47,13 @@
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="hidden" name="id" class="form-control form-control-lg" value="{{account[0] or '' }}" />
+                                        <input type="hidden" name="id" class="form-control form-control-lg"
+                                            value="{{account[0] or '' }}" />
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="hidden" name="userid" class="form-control form-control-lg" value="{{account[1] or '' }}" />
+                                        <input type="hidden" name="userid" class="form-control form-control-lg"
+                                            value="{{account[1] or '' }}" />
                                     </div>
 
                                     <div class="row">
@@ -51,55 +61,70 @@
 
 
                                             <div class="form-outline update-label">
-                                                <input type="text" name="fname" id="fnm" class="form-control form-control-lg" value="{{account[2] or '' }}" placeholder="First name" />
-                                                <label class="form-label" >First Name</label><br>
-                                                  <span id="fnmmsg" class="error"></span>
+                                                <input type="text" name="fname" id="fnm"
+                                                    class="form-control form-control-lg" value="{{account[2] or '' }}"
+                                                    placeholder="First name" />
+                                                <label class="form-label">First Name</label><br>
+                                                <span id="fnmmsg" class="error"></span>
                                             </div>
 
 
                                             <div class="form-outline update-label">
-                                                <input type="text" name="lname" id="lnm" class="form-control form-control-lg" value="{{account[3] or '' }}" placeholder="Last name" />
+                                                <input type="text" name="lname" id="lnm"
+                                                    class="form-control form-control-lg" value="{{account[3] or '' }}"
+                                                    placeholder="Last name" />
                                                 <label class="form-label">Last Name</label><br>
-                                                 <span id="lnmmsg" class="error"></span>
+                                                <span id="lnmmsg" class="error"></span>
                                             </div>
 
 
 
                                             <div class="form-outline update-label">
-                                                <input type="text" name="username" id="unm" class="form-control form-control-lg" value="{{account[16] or '' }}" readonly/>
+                                                <input type="text" name="username" id="unm"
+                                                    class="form-control form-control-lg" value="{{account[16] or '' }}"
+                                                    readonly />
                                                 <label class="form-label">Username</label><br>
                                                 <span id="unmmsg" class="error"></span>
                                             </div>
 
 
                                             <div class="form-outline update-label">
-                                                <input type="text" name="email" id="em" class="form-control form-control-lg" value="{{account[15] or '' }}" readonly/>
+                                                <input type="text" name="email" id="em"
+                                                    class="form-control form-control-lg" value="{{account[15] or '' }}"
+                                                    readonly />
                                                 <label class="form-label">Email</label><br>
                                                 <span id="emailmsg" class="error"></span>
                                             </div>
 
                                             <div class="form-outline update-label">
-                                                <input type="date" name="dob" id="db" class="form-control form-control-lg" value="{{account[4] or '' }}" placeholder="Date of Birth" />
+                                                <input type="date" name="dob" id="db"
+                                                    class="form-control form-control-lg" value="{{account[4] or '' }}"
+                                                    placeholder="Date of Birth" />
                                                 <label class="form-label">Date Of Birth</label><br>
                                                 <span id="bdate" class="error"></span>
                                             </div>
 
-                                         <div class="form-outline update-label">
-                                             {% if account[13] != None %}
-                                                <a href="{{ url_for('static', filename='uploads/' + account[13] or '') }}" download><input type="text" class="form-control form-control-lg" value="{{account[13] or '' }}"readonly></a>
-                                             {% else %}
-                                                  <input type="text" class="form-control form-control-lg" value="No file choosen"readonly>
-                                             {% endif %}
-                                            <label class="form-label">Birth-Certificate</label><br>
+                                            <div class="form-outline update-label">
+                                                {% if account[13] != None %}
+                                                <a href="{{ url_for('static', filename='uploads/' + account[13] or '') }}"
+                                                    download><input type="text" class="form-control form-control-lg"
+                                                        value="{{account[13] or '' }}" readonly></a>
+                                                {% else %}
+                                                <input type="text" class="form-control form-control-lg"
+                                                    value="No file choosen" readonly>
+                                                {% endif %}
+                                                <label class="form-label">Birth-Certificate</label><br>
+
+                                            </div>
+
+
 
                                         </div>
-
-
-
-                                         </div>
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-outline form-mobile">
-                                                <input type="tel" name="mobile" placeholder="Mobile no." id="mo_no"  class="form-control form-control-lg" value="{{account[5] or '' }}" />
+                                                <input type="tel" name="mobile" placeholder="Mobile no." id="mo_no"
+                                                    class="form-control form-control-lg"
+                                                    value="{{account[5] or '' }}" />
                                                 <label class="form-label">Mobile Number</label><br>
                                                 <span id="msg" class="error"></span>
                                             </div>
@@ -109,47 +134,56 @@
 
                                             <div class="form-group gender-group">
                                                 <label class="form-label form-gender">Gender</label>
-                                                <input name="gender" type="radio" value="male" id="m" class="mx-2" />Male
-                                                <input name="gender" type="radio" value="female" id="f" class="mx-2" />Female
-                                                <span  id="sel" hidden>{{account[6] or '' }}</span>
+                                                <input name="gender" type="radio" value="male" id="m"
+                                                    class="mx-2" />Male
+                                                <input name="gender" type="radio" value="female" id="f"
+                                                    class="mx-2" />Female
+                                                <span id="sel" hidden>{{account[6] or '' }}</span>
 
 
                                             </div>
 
 
                                             <div class="form-outline form-address">
-                                                <input type="text" name="address" id="add" class="form-control form-control-lg" value="{{account[7] or '' }}" placeholder="Address" />
+                                                <input type="text" name="address" id="add"
+                                                    class="form-control form-control-lg" value="{{account[7] or '' }}"
+                                                    placeholder="Address" />
                                                 <label class="form-label">Address</label><br>
-                                                 <span id="addmsg" class="error"></span>
+                                                <span id="addmsg" class="error"></span>
                                             </div>
 
                                             <div class="form-outline update-label">
-                                                <input type="text" name="city" id="ct" class="form-control form-control-lg" value="{{account[8] or '' }}" placeholder="City" />
+                                                <input type="text" name="city" id="ct"
+                                                    class="form-control form-control-lg" value="{{account[8] or '' }}"
+                                                    placeholder="City" />
                                                 <label class="form-label">City</label><br>
                                                 <span id="ctmsg" class="error"></span>
                                             </div>
 
                                             <div class="form-outline update-label">
-                                                <select id="st" name="state" class="form-control" value="{{account[9] or '' }}">
+                                                <select id="st" name="state" class="form-control"
+                                                    value="{{account[9] or '' }}">
                                                     <option value="{{account[9] or '' }}" selected>
                                                         {% if account[9] != None %}
-                                                            {{account[9] or '' }}
+                                                        {{account[9] or '' }}
                                                         {% else %}
-                                                            Select State
+                                                        Select State
                                                         {% endif %}
                                                     </option>
-                                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar
+                                                        Islands</option>
                                                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                                                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                                                     <option value="Assam">Assam</option>
                                                     <option value="Bihar">Bihar</option>
                                                     <option value="Chandigarh">Chandigarh</option>
                                                     <option value="Chhattisgarh">Chhattisgarh</option>
-                                                    <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                                                    <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli
+                                                    </option>
                                                     <option value="Daman and Diu">Daman and Diu</option>
                                                     <option value="Delhi">Delhi</option>
                                                     <option value="Goa">Goa</option>
-                                                    <option value="Gujarat" >Gujarat</option>
+                                                    <option value="Gujarat">Gujarat</option>
                                                     <option value="Haryana">Haryana</option>
                                                     <option value="Himachal Pradesh">Himachal Pradesh</option>
                                                     <option value="Jammu and Kashmir">Jammu and Kashmir</option>
@@ -181,13 +215,17 @@
                                             </div>
 
                                             <div class="form-outline update-label">
-                                                <input type="text" name="zipcode" id="zcode1" placeholder="Zipcode" class="form-control form-control-lg" value="{{account[10] or '' }}" />
+                                                <input type="text" name="zipcode" id="zcode1" placeholder="Zipcode"
+                                                    class="form-control form-control-lg"
+                                                    value="{{account[10] or '' }}" />
                                                 <label class="form-label">Zipcode</label><br>
                                                 <span id="zip" class="error"></span>
                                             </div>
 
                                             <div class="form-outline update-label">
-                                                <input type="date" name="profile_updated_date" class="form-control form-control-lg " value="{{account[11] or '' }}" readonly/>
+                                                <input type="date" name="profile_updated_date"
+                                                    class="form-control form-control-lg " value="{{account[11] or '' }}"
+                                                    readonly />
                                                 <label class="form-label">Profile-Updated Date</label>
                                             </div>
 
@@ -195,7 +233,8 @@
                                     </div>
 
                                     <div class="pt-1 mb-4">
-                                        <input type="submit" class="btn btn-primary btn-lg btn-block btn-submit"  value="Update">
+                                        <input type="submit" class="btn btn-primary btn-lg btn-block btn-submit"
+                                            value="Update">
                                     </div>
 
                                 </form>
